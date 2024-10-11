@@ -21,20 +21,20 @@ public class RobotContainer {
   
 private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
-  // Controle de Xbox, troque para o qual sua equipe estará utilizando
-  private XboxController p2Controller = new XboxController(Controle.P2PORT);
+// Controle de Xbox, troque para o qual sua equipe estará utilizando
+private XboxController p2Controller = new XboxController(Controle.P2PORT);
 
- private IntakeSubsystem intakeSubsystem;
-
-  private final IntakeCommand  intake = new IntakeCommand(intakeSubsystem,p2Controller);
+private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+private final IntakeCommand intakeCommand = new IntakeCommand(
+  intakeSubsystem,
+  p2Controller
+  );
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    configureBindings(
-
-
-    );
+    configureBindings();
+    setDefaultCommands();
   }
 
   /**
@@ -49,8 +49,15 @@ private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private void configureBindings() {
 
     new JoystickButton(p2Controller,XboxController.Button.kA.value).toggleOnTrue(Commands.startEnd(
-      intake::IntakeCollect,
-      intake::IntakeStop));
+      intakeCommand::IntakeCollect,
+      intakeCommand::IntakeStop));
+  };
+
+  private void setDefaultCommands() {
+      intakeSubsystem.setDefaultCommand(
+      new IntakeCommand(intakeSubsystem, p2Controller)
+    );
+
   };
 
   public Command getAutonomousCommand() {
