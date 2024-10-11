@@ -13,8 +13,8 @@ private final XboxController p2Controller;
         IntakeSubsystem intakeSubsystem2, 
         XboxController p2Controller
     ){
-         this.intakeSubsystem = intakeSubsystem;
          this.p2Controller = p2Controller;
+         this.intakeSubsystem = intakeSubsystem2;
         
          addRequirements(intakeSubsystem);
     }
