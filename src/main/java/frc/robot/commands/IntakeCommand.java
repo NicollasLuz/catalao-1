@@ -10,11 +10,11 @@ private final IntakeSubsystem intakeSubsystem;
 private final XboxController p2Controller;
 
     public IntakeCommand(
-        IntakeSubsystem intakeSubsystem2, 
+        IntakeSubsystem intakeSubsystem, 
         XboxController p2Controller
     ){
          this.p2Controller = p2Controller;
-         this.intakeSubsystem = intakeSubsystem2;
+         this.intakeSubsystem = intakeSubsystem;
         
          addRequirements(intakeSubsystem);
     }
@@ -29,8 +29,21 @@ private final XboxController p2Controller;
         (0);
     }
 
+    public void IntakeExpelir(){
+        intakeSubsystem.setIntakeSpeed
+        (-0.1);
+    }
+
     @Override
     public void execute(){
+        if (p2Controller.getRightTriggerAxis() != 0) {
+            intakeSubsystem.setIntakeSpeed(-0.5);    
+        } else if (p2Controller.getLeftTriggerAxis() != 0){
+                intakeSubsystem.setIntakeSpeed(0.3);
+        }
+        else {
+            intakeSubsystem.setIntakeSpeed(0);
+        }
     }
     
     // Called once the command ends or is interrupted.

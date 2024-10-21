@@ -48,9 +48,13 @@ private final IntakeCommand intakeCommand = new IntakeCommand(
    */
   private void configureBindings() {
 
-    new JoystickButton(p2Controller,XboxController.Button.kA.value).toggleOnTrue(Commands.startEnd(
-      intakeCommand::IntakeCollect,
-      intakeCommand::IntakeStop));
+    // new JoystickButton(p2Controller,XboxController.Axis.kRightTrigger.value).toggleOnTrue(Commands.startEnd(
+    //    intakeCommand::IntakeCollect,
+    //    intakeCommand::IntakeStop));
+
+    // new JoystickButton(p2Controller, XboxController.Button.kLeftStick.value).toggleOnTrue(Commands.startEnd(
+    //   intakeCommand::IntakeExpelir,
+    //   intakeCommand::IntakeStop));
   };
 
   private void setDefaultCommands() {
