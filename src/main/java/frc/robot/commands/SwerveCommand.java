@@ -6,14 +6,18 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
+
 import frc.robot.Constants.Dimensoes;
 import frc.robot.Constants.StateStrings;
 import frc.robot.Constants.Tracao;
+
 import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.commands.SwerveCommand;
 
 import java.util.List;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
+
 import swervelib.SwerveController;
 import swervelib.math.SwerveMath;
 
@@ -23,8 +27,8 @@ import swervelib.math.SwerveMath;
 public class SwerveCommand extends Command {
 
   // Variáveis que guardam nossas funções do gamepad
-  DoubleSupplier y;
   DoubleSupplier x;
+  DoubleSupplier y;
   DoubleSupplier turn;
   BooleanSupplier toggleSpeed;
   String speedMode = StateStrings.ON;
@@ -39,22 +43,24 @@ public class SwerveCommand extends Command {
   double omega;
 
   public SwerveCommand(
-    SwerveSubsystem swerve,
-    DoubleSupplier y,
-    DoubleSupplier x,
-    DoubleSupplier turn,
-    BooleanSupplier toggleSpeed
-  ) {
+
+  SwerveSubsystem swerve,
+  DoubleSupplier y,
+  DoubleSupplier x,
+  DoubleSupplier turn,
+  BooleanSupplier toogleSpeed
+){
     this.y = y;
     this.x = x;
     this.turn = turn;
     this.swerve = swerve;
-    this.toggleSpeed = toggleSpeed;
+   this.toggleSpeed = toogleSpeed;
     controller = swerve.getSwerveController();
     addRequirements(swerve);
   }
 
-  @Override
+
+@Override
   public void initialize() {}
 
   @Override
@@ -110,7 +116,7 @@ public class SwerveCommand extends Command {
         );
     }
 
-    swerve.drive(translation, omega, Tracao.FIELD_RELATIVE);
+    swerve.drive(translation, omega, Tracao.FIEL_RELATIVE);
   }
 
   @Override

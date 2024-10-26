@@ -35,6 +35,11 @@ public final class Constants {
     // Porta do controle
     public static final int P1PORT = 0;
     public static final int P2PORT = 1;
+
+    //Deadband do controle
+
+    public static final double DEADBAND = 0.2;
+
   }
 
   public static final class StateStrings{
@@ -105,8 +110,6 @@ public final class Constants {
     //PID de rotação
     public static final PIDFConfig ANGLE_AUTO_PID = new PIDFConfig(0.4,0,0.01);
 
-    //Deadband do controle
-    public static final double DEADBAND = 0.2;
   }
 
   public static final class Tracao{
@@ -125,12 +128,13 @@ public final class Constants {
     //Constante que define a velocidade máxima 
 
     public static final double MAX_SPEED = 4;
-
+    
+    //Deadband do controle na tração
     public static final double DT = 0.02;
-
+    
     public static final double CONSTANT_ROTATION = 4;
-
-    public static final boolean FIELD_RELATIVE = false;
+    
+    
   }
 
 

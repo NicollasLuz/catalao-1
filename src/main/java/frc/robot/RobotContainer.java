@@ -7,14 +7,18 @@ package frc.robot;
 import frc.robot.Constants.Controle;
 import frc.robot.commands.Autos;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.SwerveCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.SwerveSubsystem;
 
+import java.io.File;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
@@ -22,13 +26,16 @@ public class RobotContainer {
 private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
 // Controle de Xbox, troque para o qual sua equipe estará utilizando
+private XboxController p1Controller = new XboxController(Controle.P1PORT);
 private XboxController p2Controller = new XboxController(Controle.P2PORT);
 
 private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-private final IntakeCommand intakeCommand = new IntakeCommand(
-  intakeSubsystem,
-  p2Controller
+
+  private SwerveSubsystem swerve = new SwerveSubsystem(
+    new File(Filesystem.getDeployDirectory(), "swerve")
   );
+
+  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -47,14 +54,6 @@ private final IntakeCommand intakeCommand = new IntakeCommand(
    * joysticks}.
    */
   private void configureBindings() {
-
-    // new JoystickButton(p2Controller,XboxController.Axis.kRightTrigger.value).toggleOnTrue(Commands.startEnd(
-    //    intakeCommand::IntakeCollect,
-    //    intakeCommand::IntakeStop));
-
-    // new JoystickButton(p2Controller, XboxController.Button.kLeftStick.value).toggleOnTrue(Commands.startEnd(
-    //   intakeCommand::IntakeExpelir,
-    //   intakeCommand::IntakeStop));
   };
 
   private void setDefaultCommands() {
@@ -62,6 +61,16 @@ private final IntakeCommand intakeCommand = new IntakeCommand(
       new IntakeCommand(intakeSubsystem, p2Controller)
     );
 
+        swerve.setDefaultCommand(
+          new SwerveCommand(swerve, () ->
+          -MathUtil.applyDeadband(p1Controller.getLeftY(), Controle.DEADBAND),
+        () ->
+          -MathUtil.applyDeadband(p1Controller.getLeftX(), Controle.DEADBAND),
+        () ->
+          -MathUtil.applyDeadband(p1Controller.getRightX(), Controle.DEADBAND),
+        () -> p1Controller.getRightBumperPressed()
+      )
+    );
   };
 
   public Command getAutonomousCommand() {
