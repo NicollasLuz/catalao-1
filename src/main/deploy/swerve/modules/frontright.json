@@ -11,12 +11,12 @@
   },
   "angle": {
     "type": "sparkmax",
-    "id": 12,
+    "id": 2,
     "canbus": null
   },
   "inverted": {
     "angle": true,
-    "drive": false
+    "drive": true
   },
   "conversionFactor": {
     "angle": 0,
