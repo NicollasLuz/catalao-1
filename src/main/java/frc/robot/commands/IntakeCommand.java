@@ -3,12 +3,19 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.Constants.Buttons;
+import frc.robot.Constants.Intake.IntakeMode;
 
 public class IntakeCommand extends Command{
     
 private final IntakeSubsystem intakeSubsystem;
 private final XboxController p2Controller;
+private IntakeMode intakeMode;
 
+@Override
+public void initialize(){
+    intakeMode = IntakeMode.INSIDE;
+}
     public IntakeCommand(
         IntakeSubsystem intakeSubsystem, 
         XboxController p2Controller
@@ -36,6 +43,16 @@ private final XboxController p2Controller;
 
     @Override
     public void execute(){
+
+        if(p2Controller.getRawButton(Buttons.BUTTON_Y)){
+            intakeMode = IntakeMode.INSIDE;
+        }else if (p2Controller.getRawButton(Buttons.BUTTON_A)){
+            intakeMode = IntakeMode.COLLECT;
+        }else if (p2Controller.getRawButton(Buttons.BUTTON_B)){
+            intakeMode = IntakeMode.DEPOSIT;
+        }
+
+
         if (p2Controller.getRightTriggerAxis() != 0) {
             intakeSubsystem.setIntakeSpeed(-0.5);    
         } else if (p2Controller.getLeftTriggerAxis() != 0){

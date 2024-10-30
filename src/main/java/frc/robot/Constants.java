@@ -42,6 +42,31 @@ public final class Constants {
 
   }
 
+  public static final class Buttons {
+
+    public static final int BUTTON_A = 1;
+    public static final int BUTTON_B = 2;
+    public static final int BUTTON_X = 3;
+    public static final int BUTTON_Y = 4;
+    public static final int LEFT_BUMPER = 5;
+    public static final int RIGHT_BUMPER = 6;
+    public static final int BUTTON_BACK = 7;
+  }
+
+
+  public static final class Intake{
+
+  public static enum IntakeMode {
+  INSIDE,
+  COLLECT,
+  DEPOSIT
+  }
+
+  public static final double INSIDE_POSITION = 0;
+  public static final double COLLECT_POSITION = 0;
+  public static final double DEPOSIT_POSITION = 0;
+  
+}
   public static final class StateStrings{
 
     public static final String OFF = "OFF";
